@@ -1,6 +1,6 @@
-if File.exist?(ARGV.first)
-	puts 'File exists'
-else
-	file = File.new(ARGV.first, 'w')
-	file.write('1' * ARGV[1].to_i)
-end
+# frozen_string_literal: true
+
+require_relative 'lib/file_processing_class'
+
+output = FileProcessing.check_and_fill(ARGV.first, ARGV[1])
+puts output if output.is_a?(String)
