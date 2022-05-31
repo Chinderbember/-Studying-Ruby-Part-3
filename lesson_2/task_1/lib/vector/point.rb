@@ -1,10 +1,14 @@
-class Vector::Point
+# frozen_string_literal: true
 
-	attr_accessor :x, :y
+class Vector
+  class Point
+    attr_accessor :x, :y
 
-	def initialize(x:, y:)
-		@x = x
-		@y = y
-	end
-
+    # rubocop:disable Naming/MethodParameterName
+    def initialize(x:, y:)
+      @x = x
+      @y = y
+    end
+    # rubocop:enable Naming/MethodParameterName
+  end
 end
