@@ -31,3 +31,6 @@ p unit.spec_number
 
 unit.add_employee(role: :boss, name: 'Ay', surname: 'Ast')
 unit.showlist
+
+puts
+unit.filter(role: :frontender)

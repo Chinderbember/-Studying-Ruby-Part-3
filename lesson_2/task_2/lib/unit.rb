@@ -34,7 +34,9 @@ class Unit
 		list[position_in_list - 1].surname = new_surname
 	end
 
-	def showlist
+ # разбил изначальный метод вывода списка в алфавитном порядке на 2 что бы удобнее было реализовать 
+ # фильтрацию по должности
+	def demoshowlist
 		sorted_list = list.sort do |person_fst, person_snd| 
 			if person_fst.surname == person_snd.surname
 			  person_fst.name <=> person_snd.name
@@ -42,7 +44,18 @@ class Unit
 				person_fst.surname <=> person_snd.surname
 			end
 		end
-		sorted_list.each_with_index { |person, i| puts "#{i + 1}. #{person}" }
+	end
+
+	private :demoshowlist
+
+	def showlist
+		demoshowlist.each_with_index { |person, i| puts "#{i + 1}. #{person}" }
+	end
+
+	def filter(role:)
+		demoshowlist
+		.select { |person| person.role == role }
+		.each_with_index { |person, i| puts "#{i + 1}. #{person}" }
 	end
 	
 end
