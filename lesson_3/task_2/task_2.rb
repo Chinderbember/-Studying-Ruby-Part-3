@@ -1,20 +1,7 @@
-module Kernel
-	COLORS = {
-		red: 'красный',
-		orange: 'оранжевый',
-		yellow: 'желтый',
-		green: 'зеленый',
-		blue: 'голубой',
-		indigo: 'синий',
-		violet: 'фиолетовый'
-	}
-	COLORS.each do |method , value|
-		define_method method do 
-			value
-		end
-	end
-end
+# frozen_string_literal: true
+
+require_relative 'lib/extended_kernel'
 
 Kernel::COLORS.each do |method, _value|
-	puts send(method)
+  puts send(method)
 end
