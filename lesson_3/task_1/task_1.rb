@@ -1,27 +1,14 @@
-module Seomodule
-	class Seo
-		attr_accessor :title, :description, :keywords
-	end
+require_relative 'lib/page'
+require_relative 'lib/page/seo_module'
 
-	attr_accessor :seo
-
-	def initialize
-		@seo = Seo.new
-		super
-	end
-
-end
-
-class Page
-	attr_accessor :title, :body
-end
 
 class News < Page
-	prepend Seomodule
+	prepend SeoModule
 	attr_accessor :date
 end
 
 class About < Page
+	prepend SeoModule
 	attr_accessor :phones, :address
 end
 
@@ -30,6 +17,11 @@ class PhotoCatalog < Page
 end
 
 news = News.new
-
-news.title = 'title'
+news.title = 'News title'
+news.seo.keywords = 'News meta_keywords'
 p news
+
+about = About.new
+about.title = 'About title'
+about.seo.keywords = 'About meta_keywords'
+p about
