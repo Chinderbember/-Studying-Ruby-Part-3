@@ -1,18 +1,25 @@
 class Dir
-	def self.short_entries(path)
+	def self.detailed_entries(path)
 		content = Dir.entries(path).reject { |el| File.file?(File.join(path, el)) }
 		content.slice!(0..1)
+		content = content.map { |el| File.join(path, el) }
 		content_copy = content.dup
-		# content.reduce(content_copy) {|total, el|  total << short_entries(File.join(path, el)) }
-		content.reduce(content_copy) {|total, el|  total + short_entries(File.join(path, el)) }
+		content.reduce(content_copy) {|total, el|  total + detailed_entries(el) }
+		
+
 	end
 
 	def entries_plus_sub(path)
 
 
 	end
+
+	def self.wd_detailed_entries
+		detailed_entries('.')
+	end
 end
 
-p Dir.entries('..')
-p Dir.short_entries('..')
+p Dir.entries('.')
+# p Dir.short_entries('.')
+p Dir.wd_detailed_entries
 
