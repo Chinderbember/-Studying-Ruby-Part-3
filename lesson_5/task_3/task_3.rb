@@ -1,25 +1,6 @@
-class Dir
-	def self.detailed_entries(path)
-		content = Dir.entries(path).reject { |el| File.file?(File.join(path, el)) }
-		content.slice!(0..1)
-		content = content.map { |el| File.join(path, el) }
-		content_copy = content.dup
-		content.reduce(content_copy) {|total, el|  total + detailed_entries(el) }
-		
+# frozen_string_literal: true
 
-	end
-
-	def entries_plus_sub(path)
-
-
-	end
-
-	def self.wd_detailed_entries
-		detailed_entries('.')
-	end
-end
+require_relative 'lib/extended_dir'
 
 p Dir.entries('.')
-# p Dir.short_entries('.')
 p Dir.wd_detailed_entries
-
