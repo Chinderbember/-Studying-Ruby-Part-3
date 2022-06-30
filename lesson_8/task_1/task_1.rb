@@ -1,19 +1,12 @@
-require 'set'
+# frozen_string_literal: true
 
-class Keywords < Set 
-	def <<(keyword)
-		super keyword.downcase
-	end
-
-	def delete(keyword)
-		super keyword.downcase
-	end
-
-end
+require_relative 'lib/keywords'
 
 keywords_arr = %w[sale buy sell]
 keywords = Keywords.new(keywords_arr)
+
 keywords << 'Buy'
 keywords << 'BUY'
-p keywords << 'seller'
+keywords << 'seller'
+
 p keywords
