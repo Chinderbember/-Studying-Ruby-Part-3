@@ -1,32 +1,31 @@
 class Fleet
-	# Submarine = Struct.new(:rockets, :torpedos, :location)
-	RocketCruzer = Struct.new(:rockets, :location)
-	MilitaryTransport = Struct.new(:hold, :crane, :location)
+	ClassesCreationArr = [%i[rockets, torpedos location], %i[rockets location], %i[hold crane location] ]
 
-	# class_arr = [Submarine, RocketCruzer, MilitaryTransport]
-	# Submarine, RocketCruzer, MilitaryTransport = 
-	# (class_arr.map do |klass|  
-	#   def klass.new(*params)
+	Submarine, RocketCruzer, MilitaryTransport = 
+	ClassesCreationArr.map do |class_methods|
+		 Class.new(superclass = Struct.new(*class_methods)) do
+  			def self.new(*params)
+			    location = params.last
+				  if Cells.status(x: location[:x], y: location[:y])
+				    super
+				  else
+				    warn 'Chosen coordinates are busy!'
+				  end
+	  	  end
+		  end
+	end
+
+ 
+ #  Submarine = Class.new(superclass = Struct.new(:rockets, :torpedos, :location)) do
+ #  	def self.new(*params)
 	#     location = params.last
 	# 	  if Cells.status(x: location[:x], y: location[:y])
-	# 	    super(params[0], params[1], params[2]) 
+	# 	    super
 	# 	  else
 	# 	    warn 'Chosen coordinates are busy!'
 	# 	  end
 	#   end
-	#   klass
- #  end)
- 
-  class Submarine < Struct.new(:rockets, :torpedos, :location)
-  	def self.new(*params)
-	    location = params.last
-		  if Cells.status(x: location[:x], y: location[:y])
-		    super(params[0], params[1], params[2]) 
-		  else
-		    warn 'Chosen coordinates are busy!'
-		  end
-	  end
-	end
+	# end
 
 
 	
@@ -53,7 +52,14 @@ class Fleet
 	end
 
 end
-Fleet::Cells.set_status(x: 5, y: 7, free: false)
+
+
+Fleet::Cells.list_with_status
+Fleet::Cells.set_status(x: 5, y: 7, free: nil)
+Fleet::Cells.set_status(x: 6, y: 7, free: nil)
+Fleet::Cells.set_status(x: 7, y: 7, free: nil)
 p sub = Fleet::Submarine.new(1, 4, {x: 5, y: 7})
-p Fleet::Cells.list_with_status
+p rocket_cruiser = Fleet::RocketCruzer.new(10, {x: 6, y: 7})
+p military_transport = Fleet::MilitaryTransport.new(1, 1, {x: 7, y: 7})
+
 
